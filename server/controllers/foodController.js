@@ -30,6 +30,12 @@ module.exports = {
     },
     editFood: (req, res) => {
         // do whatever I have to do to edit a food
+        const {id} = req.params
+        const {name} = req.body
+        const index = food.findIndex((element) => {
+            return element.id === +id
+        })
+        food[index].name = name
         return res.status(200).send(food)
     }
 }

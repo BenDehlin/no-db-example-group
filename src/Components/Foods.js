@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Food from './Food'
+import FoodClass from './FoodClass'
 
 class Foods extends Component{
     constructor(props){
@@ -20,7 +21,14 @@ class Foods extends Component{
     deleteFood = (id) => {
         axios.delete(`/api/food/${id}`)
         .then((response) => {
-            console.log(response)
+            this.setState({food: response.data})
+        })
+        .catch(err => console.log(err))
+    }
+
+    editFood = (id, name) => {
+        axios.put(`/api/food/${id}`, {name})
+        .then((response) => {
             this.setState({food: response.data})
         })
         .catch(err => console.log(err))
@@ -31,7 +39,12 @@ class Foods extends Component{
             <div>
                 <h1>Foods</h1>
                 {this.state.food.map((element) => {
-                    return <Food info={element} key={element.id} deleteFood={this.deleteFood} />
+                    return <FoodClass 
+                    info={element} 
+                    key={element.id} 
+                    deleteFood={this.deleteFood}
+                    editFood={this.editFood}
+                     />
                 })}
             </div>
         )
