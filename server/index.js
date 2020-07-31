@@ -15,6 +15,7 @@ app.use(express.json())
 // http://localhost:3333/api/food
 app.get('/api/food', foodCtrl.getFood)
 // app.get('/api/food', con.food.getFood)
+app.post('/api/food', foodCtrl.addFood)
 app.delete('/api/food/:id', foodCtrl.deleteFood)
 app.put('/api/food/:id', foodCtrl.editFood)
 

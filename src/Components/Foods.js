@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import Food from './Food'
 import FoodClass from './FoodClass'
+import AddFood from './AddFood'
 
 class Foods extends Component{
     constructor(props){
@@ -26,6 +26,14 @@ class Foods extends Component{
         .catch(err => console.log(err))
     }
 
+    addFood = (name) => {
+        axios.post('/api/food', {name})
+        .then((response) => {
+            this.setState({food: response.data})
+        })
+        .catch(err => console.log(err))
+    }
+
     editFood = (id, name) => {
         axios.put(`/api/food/${id}`, {name})
         .then((response) => {
@@ -38,6 +46,7 @@ class Foods extends Component{
         return(
             <div>
                 <h1>Foods</h1>
+                <AddFood addFood={this.addFood} />
                 {this.state.food.map((element) => {
                     return <FoodClass 
                     info={element} 

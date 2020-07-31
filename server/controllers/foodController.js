@@ -8,6 +8,7 @@ let food = [
         name: "celery"
     }
 ]
+let nextId = 3
 
 module.exports = {
     getFood: (req, res) => {
@@ -15,6 +16,13 @@ module.exports = {
     },
     addFood: (req, res) => {
         //do whatever I have to do to add a food
+        const {name} = req.body
+        const newFood = {
+            id: nextId,
+            name
+        }
+        nextId++
+        food.push(newFood)
         return res.status(200).send(food)
     },
     deleteFood: (req, res) => {
